@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opciones de Entrega</title>
+    <style>
+        /* Estilos generales del cuerpo */
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* Fuente moderna y legible */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            /* Fondo con gradiente azul inspirado en la imagen */
+            background-color: #005f73; /* Color base si el gradiente no carga */
+            background-image: linear-gradient(135deg, #0a9396 0%, #005f73 100%); /* Gradiente azul verdoso a azul oscuro */
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Contenedor principal de los botones */
+        .frontier-container {
+            background-color: #ffffff; /* Fondo blanco para el contenedor */
+            padding: 30px 40px; /* Espaciado interno */
+            border-radius: 12px; /* Bordes redondeados */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Sombra sutil para profundidad, ligeramente más oscura */
+            width: 100%;
+            max-width: 500px; /* Ancho máximo del contenedor */
+            text-align: center; /* Centrar el contenido */
+        }
+
+        /* Estilos para cada enlace (anteriormente botón) */
+        .delivery-link { /* Cambiado de .delivery-button a .delivery-link para mayor claridad semántica */
+            display: block; /* Hace que el enlace ocupe todo el ancho disponible */
+            width: 100%;
+            background-color: #007bff; /* Color primario azul */
+            color: white; /* Texto blanco */
+            padding: 18px 25px; /* Espaciado interno del enlace */
+            margin-bottom: 15px; /* Espacio debajo de cada enlace */
+            border: none; /* Sin borde */
+            border-radius: 8px; /* Bordes redondeados para el enlace */
+            cursor: pointer; /* Cursor de mano al pasar sobre el enlace */
+            text-align: left; /* Alineación del texto a la izquierda dentro del enlace */
+            text-decoration: none; /* Quitar el subrayado por defecto de los enlaces */
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Transiciones suaves */
+            box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+        }
+
+        /* Estilo específico para el segundo enlace (Consolidado) */
+        .delivery-link.consolidated {
+            background-color: #6c757d; /* Color secundario gris */
+        }
+
+        /* Efecto al pasar el cursor sobre los enlaces */
+        .delivery-link:hover {
+            background-color: #0056b3; /* Azul más oscuro para el primer enlace */
+            transform: translateY(-3px); /* Ligero movimiento hacia arriba */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada al hacer hover */
+        }
+
+        .delivery-link.consolidated:hover {
+            background-color: #545b62; /* Gris más oscuro para el segundo enlace */
+            transform: translateY(-3px); /* Ligero movimiento hacia arriba */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada al hacer hover */
+        }
+
+        /* Estilo para el título principal dentro del enlace */
+        .button-title { /* Mantenemos los nombres de clase internos por consistencia visual */
+            display: block; /* Asegura que ocupe su propia línea */
+            font-size: 1.15em; /* Tamaño de fuente del título */
+            font-weight: 600; /* Peso de la fuente (semi-negrita) */
+            margin-bottom: 5px; /* Espacio debajo del título */
+        }
+
+        /* Estilo para el subtítulo dentro del enlace */
+        .button-subtitle {
+            display: block; /* Asegura que ocupe su propia línea */
+            font-size: 0.9em; /* Tamaño de fuente del subtítulo */
+            font-weight: 400; /* Peso de la fuente normal */
+            opacity: 0.9; /* Ligera transparencia para el subtítulo */
+        }
+
+        /* Eliminar el margen inferior del último enlace */
+        .delivery-link:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Mejoras para pantallas pequeñas (responsividad) */
+        @media (max-width: 600px) {
+            .frontier-container {
+                padding: 25px 20px; /* Menor padding en pantallas pequeñas */
+                margin: 15px;
+            }
+
+            .delivery-link {
+                padding: 15px 20px; /* Menor padding en los enlaces */
+            }
+
+            .button-title {
+                font-size: 1.05em;
+            }
+
+            .button-subtitle {
+                font-size: 0.85em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="frontier-container">
+        <a href="https://zorropaton.github.io/Consolidado/index.html" class="delivery-link national-list">
+            <span class="button-title">Lista Normal</span>
+            <span class="button-subtitle">Entrega de productos 24 horas</span>
+        </a>
+
+        <a href="https://zorropaton.github.io/Consolidado/consolidado.html" class="delivery-link consolidated">
+            <span class="button-title">Consolidado</span>
+            <span class="button-subtitle">Entrega en 48-72 hrs</span>
+        </a>
+    </div>
+
+</body>
+</html>

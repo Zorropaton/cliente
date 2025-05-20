@@ -54,6 +54,8 @@
         .login-container img.logo {
             width: 180px; /* Ancho del logo ajustado previamente */
             margin-bottom: 30px; /* Espacio debajo del logo */
+            /* Fallback image using placehold.co if the primary image fails to load */
+            onerror: "this.onerror=null;this.src='https://placehold.co/180x60/EFEFEF/grey?text=Logo+Manufharm';"
         }
 
         /* Grupo de cada campo de entrada (input + icono) */
@@ -134,7 +136,7 @@
 
         /* Estilo para los enlaces inferiores (olvidaste contraseña, hazte cliente) */
         .links {
-            margin-top: 20px; /* Espacio arriba de los enlaces (reducido un poco por el mensaje de error) */
+            margin-top: 20px; /* Espacio arriba de los enlaces */
             font-size: 0.9em; /* Tamaño de fuente */
         }
 
@@ -158,13 +160,11 @@
 
         <form id="loginForm" action="#" method="POST">
             <div class="input-group">
-                <span class="icon">&#128100;</span>
-                <input type="text" id="username" name="username" placeholder="Usuario" required autocomplete="username">
+                <span class="icon">&#128100;</span> <input type="text" id="username" name="username" placeholder="Usuario" required autocomplete="username">
             </div>
 
             <div class="input-group">
-                <span class="icon">&#128274;</span>
-                <input type="password" id="password" name="password" placeholder="Clave" required autocomplete="current-password">
+                <span class="icon">&#128274;</span> <input type="password" id="password" name="password" placeholder="Clave" required autocomplete="current-password">
             </div>
 
             <button type="submit" class="btn-login">Ingresar</button>
@@ -188,7 +188,7 @@
             const errorMessageDiv = document.getElementById('errorMessage');
 
             // Definir los usuarios y sus redirecciones
-            // Puedes agregar más usuarios a este array si es necesario
+            // La URL de redirección para "Farmaciasgo" se ha establecido como solicitaste.
             const users = [
                 {
                     username: "Prueba",
@@ -205,14 +205,23 @@
                     password: "gyv2",
                     redirectUrl: "https://zorropaton.github.io/cliente/eleccionacional.html" 
                 },
-                { // NUEVO USUARIO AÑADIDO
+                { 
                     username: "Natural",
                     password: "4141",
                     redirectUrl: "https://zorropaton.github.io/Consolidado/consolidado60.html"
+                },
+                { // Usuario "Farmaciasgo" añadido
+                    username: "Farmaciasgo",
+                    password: "6060",
+                    redirectUrl: "https://zorropaton.github.io/cliente/eleccionnormal.html" 
                 }
                 // Puedes añadir más objetos de usuario aquí:
                 // { username: "otroUsuario", password: "otraClave", redirectUrl: "https://otra.url.com" }
             ];
+
+            // Contraseña especial y su URL de redirección
+            const specialPassword = "5654";
+            const specialRedirectUrl = "https://zorropaton.github.io/cliente/eleccionnormal.html";
 
             // Añadir un 'event listener' para el evento 'submit' del formulario
             loginForm.addEventListener('submit', function(event) {
@@ -224,7 +233,17 @@
 
                 let loggedIn = false; // Variable para rastrear si el inicio de sesión fue exitoso
 
-                // Iterar sobre la lista de usuarios para encontrar una coincidencia
+                // 1. Verificar la contraseña especial PRIMERO
+                // Si la contraseña ingresada es la especial, redirige sin importar el nombre de usuario.
+                if (enteredPassword === specialPassword) {
+                    errorMessageDiv.style.display = 'none'; // Ocultar mensaje de error si estaba visible
+                    window.location.href = specialRedirectUrl; // Redirigir al usuario
+                    loggedIn = true; // Marcar como inicio de sesión exitoso
+                    return; // Importante: Salir de la función para no procesar más
+                }
+
+                // 2. Si no es la contraseña especial, buscar en la lista de usuarios normales
+                // Iterar sobre la lista de usuarios para encontrar una coincidencia de usuario y contraseña
                 for (const user of users) {
                     if (enteredUsername === user.username && enteredPassword === user.password) {
                         errorMessageDiv.style.display = 'none'; // Ocultar mensaje de error
@@ -234,12 +253,13 @@
                     }
                 }
 
-                // Si después de revisar todos los usuarios, loggedIn sigue siendo false, mostrar error
+                // 3. Si después de revisar todo (contraseña especial y lista de usuarios),
+                // loggedIn sigue siendo false, significa que las credenciales son incorrectas.
                 if (!loggedIn) {
                     errorMessageDiv.textContent = "Usuario o contraseña incorrectos. Por favor, inténtalo de nuevo.";
                     errorMessageDiv.style.display = 'block'; // Hacer visible el mensaje de error
-                    passwordInput.value = ""; // Limpiar el campo de contraseña
-                    passwordInput.focus(); // Poner el foco en el campo de contraseña
+                    passwordInput.value = ""; // Limpiar el campo de contraseña para seguridad
+                    passwordInput.focus(); // Poner el foco en el campo de contraseña para facilitar la corrección
                 }
             });
         });

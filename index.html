@@ -10,78 +10,103 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0d9488 0%, #0e7490 100%);
         }
         .fade-in-scale {
-            animation: fadeInScale 0.5s ease-out forwards;
+            animation: fadeInScale 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         @keyframes fadeInScale {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
+            from { opacity: 0; transform: translateY(15px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen bg-gradient-to-br from-teal-500 to-cyan-700 p-4">
+<body class="flex items-center justify-center min-h-screen p-4">
 
-    <!-- Contenedor principal -->
-    <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-2xl shadow-2xl fade-in-scale">
+    <!-- Tarjeta Principal con diseño refinado -->
+    <div class="w-full max-w-md bg-white rounded-[2.5rem] shadow-2xl overflow-hidden fade-in-scale">
         
-        <!-- Logo con tamaño destacado -->
-        <div class="flex justify-center mb-2">
-            <img src="https://raw.githubusercontent.com/Zorropaton/cliente/main/logo.png" 
-                 alt="Logo Farmacias Nacional" 
-                 class="h-24 w-auto object-contain"
-                 onerror="this.onerror=null;this.src='https://placehold.co/300x120/f1f5f9/64748b?text=Farmacias+Nacional';">
+        <div class="p-8 md:p-10">
+            <!-- Logo y Encabezado -->
+            <div class="flex flex-col items-center mb-8">
+                <img src="https://raw.githubusercontent.com/Zorropaton/cliente/main/logo.png" 
+                     alt="Logo Farmacias Nacional" 
+                     class="h-20 w-auto object-contain mb-4"
+                     onerror="this.onerror=null;this.src='https://placehold.co/300x120/f1f5f9/64748b?text=Farmacias+Nacional';">
+                
+                <h1 class="text-xl font-bold text-gray-800 tracking-tight">Acceso al Portal Técnico</h1>
+                <p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold mt-1">Plataforma de Cotización y Validación</p>
+            </div>
+
+            <!-- Formulario de Inicio de Sesión con Íconos Restaurados -->
+            <form id="loginForm" class="space-y-5">
+                <div class="space-y-1">
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
+                            <!-- Ícono de Usuario -->
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                        </span>
+                        <input type="text" id="username" name="username" required
+                               class="block w-full pl-12 pr-4 py-3.5 border border-gray-200 rounded-2xl bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all shadow-sm placeholder:text-gray-400"
+                               placeholder="Usuario autorizado">
+                    </div>
+                </div>
+
+                <div class="space-y-1">
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
+                            <!-- Ícono de Candado -->
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                            </svg>
+                        </span>
+                        <input type="password" id="password" name="password" required
+                               class="block w-full pl-12 pr-4 py-3.5 border border-gray-200 rounded-2xl bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all shadow-sm placeholder:text-gray-400"
+                               placeholder="Clave de seguridad">
+                    </div>
+                </div>
+
+                <button type="submit" 
+                        class="w-full py-4 px-6 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-2xl shadow-lg transition-all active:scale-95 uppercase tracking-widest text-xs">
+                    Ingresar al Sistema
+                </button>
+            </form>
+
+            <!-- Mensaje de Error Restaurado -->
+            <div id="errorMessage" class="hidden mt-4 p-3 text-xs text-red-700 bg-red-100 border border-red-200 rounded-xl text-center font-semibold animate-pulse"></div>
+
+            <!-- SECCIÓN DE AVISOS LEGALES (Ubicada abajo para mejor flujo visual) -->
+            <div class="mt-8 space-y-4">
+                <!-- AVISO DE COMPAÑEROS (Recuadro Ámbar) -->
+                <div class="bg-amber-50 rounded-2xl p-4 border border-amber-100 shadow-sm">
+                    <p class="text-[12px] text-amber-900 leading-relaxed italic font-semibold text-center">
+                        “Este sitio web solo permite la cotización de recetas. La venta y dispensación de medicamentos se realiza exclusivamente de forma presencial en nuestra farmacia.”
+                    </p>
+                </div>
+
+                <!-- AVISO TÉCNICO NORMATIVO (ISP) -->
+                <div class="px-2">
+                    <p class="text-[10px] text-gray-500 text-justify leading-relaxed">
+                        <strong>AVISO LEGAL:</strong> Portal de gestión interna y presupuestaria. Los precios no constituyen oferta de venta directa. Toda entrega requiere receta médica y validación del Director Técnico (Dto. 28 y Norma Técnica 208 del ISP).
+                    </p>
+                </div>
+            </div>
         </div>
 
-        <!-- Encabezado Normativo (Cumplimiento ISP Chile) -->
-        <div class="text-center space-y-3">
-            <h1 class="text-lg font-bold text-gray-800 leading-tight">Acceso Privado a Plataforma de Cotización y Validación Sanitaria</h1>
-            
-            <div class="bg-gray-50 p-3 rounded-lg border border-gray-100">
-                <p class="text-[10px] text-gray-500 text-justify leading-relaxed italic">
-                    <strong>AVISO LEGAL:</strong> Este portal es una herramienta de gestión interna y presupuestaria para usuarios autorizados. Los precios y disponibilidad aquí mostrados no constituyen una oferta de venta directa. Toda entrega de medicamentos está supeditada a la presentación de la receta médica respectiva y la validación del Director Técnico, conforme al Dto. 28 y la Norma Técnica 208 del ISP.
+        <!-- Footer del Sistema -->
+        <div class="bg-gray-50 p-6 text-center border-t border-gray-100">
+            <div class="flex flex-col space-y-2">
+                <p class="text-[9px] text-gray-400 uppercase font-bold tracking-[0.2em]">
+                    Sistema de Control Sanitario - Farmacias Nacional
                 </p>
+                <div class="flex justify-center space-x-4">
+                    <a href="#" class="text-[11px] text-teal-600 hover:underline font-semibold">Soporte</a>
+                    <span class="text-gray-300">|</span>
+                    <a href="#" class="text-[11px] text-teal-600 hover:underline font-semibold">Normativa ISP</a>
+                </div>
             </div>
-        </div>
-
-        <!-- Formulario -->
-        <form id="loginForm" class="space-y-4">
-            <div class="relative">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                    </svg>
-                </span>
-                <input type="text" id="username" name="username" required
-                       class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
-                       placeholder="Usuario autorizado">
-            </div>
-
-            <div class="relative">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                    </svg>
-                </span>
-                <input type="password" id="password" name="password" required
-                       class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
-                       placeholder="Clave de seguridad">
-            </div>
-
-            <button type="submit" 
-                    class="w-full py-3 px-4 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 active:scale-95 uppercase tracking-wide text-sm">
-                Ingresar al Portal Técnico
-            </button>
-        </form>
-
-        <div id="errorMessage" class="hidden p-3 text-sm text-red-700 bg-red-100 border border-red-200 rounded-lg text-center animate-pulse"></div>
-
-        <!-- Enlaces Inferiores -->
-        <div class="flex flex-col space-y-2 text-center pt-2 border-t border-gray-100">
-            <p class="text-[9px] text-gray-400 uppercase font-bold tracking-widest">
-                Sistema de Control Sanitario - Farmacias Nacional
-            </p>
-            <a href="#" class="text-xs text-teal-600 hover:underline">Soporte técnico de plataforma</a>
         </div>
     </div>
 

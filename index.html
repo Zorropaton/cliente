@@ -3,264 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión - Farmacias Nacional</title>
+    <title>Portal Sanitario - Farmacias Nacional</title>
+    <!-- Incluyendo Tailwind CSS desde el CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Estilos generales del cuerpo de la página */
         body {
-            font-family: 'Segoe UI', Roboto, Arial, sans-serif; /* Fuentes modernas y comunes */
-            background-color: #005A8C; /* Color de fondo base */
-            /* Patrón de fondo sutil con SVG para un aspecto más dinámico */
-            background-image:
-                radial-gradient(circle at 1px 1px, rgba(255,255,255,0.08) 1px, transparent 0),
-                radial-gradient(circle at 15px 15px, rgba(255,255,255,0.05) 1px, transparent 0);
-            background-size: 30px 30px; /* Tamaño del patrón */
-            background-position: 0 0, 15px 15px; /* Desfase para el segundo patrón de puntos */
-            display: flex; /* Usar flexbox para centrar contenido */
-            justify-content: center; /* Centrar horizontalmente */
-            align-items: center; /* Centrar verticalmente */
-            height: 100vh; /* Ocupa toda la altura de la ventana */
-            margin: 0; /* Sin márgenes exteriores */
-            overflow: hidden; /* Evitar barras de desplazamiento innecesarias */
+            font-family: 'Inter', sans-serif;
         }
-
-        /* Contenedor principal del formulario de inicio de sesión */
-        .login-container {
-            background-color: #FFFFFF; /* Fondo blanco para el contenedor */
-            padding: 40px 50px; /* Espaciado interno (vertical, horizontal) aumentado */
-            border-radius: 15px; /* Bordes más redondeados */
-            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2); /* Sombra más suave y difusa */
-            width: 360px; /* Ancho del contenedor ligeramente aumentado */
-            max-width: 95%; /* Máximo ancho para responsividad en pantallas pequeñas */
-            text-align: center; /* Centrado del texto y logo */
-            box-sizing: border-box; /* Para que padding y border no aumenten el tamaño total */
-            animation: fadeInScaleUp 0.6s ease-out forwards; /* Animación de entrada mejorada */
-            position: relative; /* Para z-index si fuera necesario superponer sobre el fondo */
-            z-index: 1; /* Asegura que el contenedor esté sobre el patrón de fondo si hay superposición */
+        .fade-in-scale {
+            animation: fadeInScale 0.5s ease-out forwards;
         }
-
-        /* Animación para el contenedor: aparece y escala ligeramente */
-        @keyframes fadeInScaleUp {
-            from {
-                opacity: 0;
-                transform: scale(0.92) translateY(10px); /* Comienza más pequeño y ligeramente abajo */
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0); /* Termina en tamaño normal y posición original */
-            }
-        }
-
-        /* Estilo para la imagen del logo */
-        .login-container img.logo {
-            width: 180px; /* Ancho del logo ajustado previamente */
-            margin-bottom: 30px; /* Espacio debajo del logo */
-            /* Fallback image using placehold.co if the primary image fails to load */
-            onerror: "this.onerror=null;this.src='https://placehold.co/180x60/EFEFEF/grey?text=Logo+Manufharm';"
-        }
-
-        /* Grupo de cada campo de entrada (input + icono) */
-        .input-group {
-            margin-bottom: 25px; /* Espacio entre campos aumentado */
-            position: relative; /* Necesario para posicionar el icono absolutamente */
-        }
-
-        /* Estilo para los campos de texto (usuario y contraseña) */
-        .input-group input[type="text"],
-        .input-group input[type="password"] {
-            width: 100%; /* Ocupa todo el ancho disponible del .input-group */
-            padding: 15px 20px 15px 50px; /* Espaciado interno: arriba, derecha, abajo, izquierda (para el icono) */
-            border: 1px solid #CED4DA; /* Borde más claro y estándar */
-            border-radius: 8px; /* Bordes redondeados para los campos */
-            box-sizing: border-box; /* Importante para que el padding no desborde el ancho */
-            font-size: 1em; /* Tamaño de fuente */
-            color: #495057; /* Color de texto más oscuro para mejor contraste */
-            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Transición suave para foco */
-        }
-
-        .input-group input[type="text"]:focus,
-        .input-group input[type="password"]:focus {
-            outline: none; /* Quitar el outline por defecto al hacer foco */
-            border-color: #007BFF; /* Cambiar color del borde al hacer foco (azul Manufharm) */
-            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Sombra de foco estándar de Bootstrap */
-        }
-
-        /* Estilo para los iconos dentro de los campos de entrada */
-        .input-group .icon {
-            position: absolute; /* Posicionamiento absoluto respecto al .input-group */
-            left: 18px; /* Distancia desde la izquierda */
-            top: 50%; /* Centrado vertical */
-            transform: translateY(-50%); /* Ajuste fino para centrado vertical exacto */
-            color: #6C757D; /* Color del icono (gris oscuro) */
-            font-size: 1.2em; /* Tamaño del icono ligeramente aumentado */
-        }
-
-        /* Estilo del botón de "Ingresar" */
-        button.btn-login {
-            background-color: #007BFF; /* Color de fondo del botón (azul Manufharm) */
-            color: white; /* Color del texto del botón */
-            padding: 15px 20px; /* Espaciado interno del botón */
-            border: none; /* Sin borde */
-            border-radius: 8px; /* Bordes redondeados */
-            cursor: pointer; /* Cursor de mano al pasar sobre el botón */
-            font-size: 1.15em; /* Tamaño de fuente */
-            font-weight: 600; /* Un poco más de peso en la fuente */
-            width: 100%; /* Ocupa todo el ancho */
-            transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease; /* Transiciones suaves */
-            margin-top: 20px; /* Espacio arriba del botón */
-            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2); /* Sombra sutil para el botón */
-        }
-
-        button.btn-login:hover {
-            background-color: #005EC4; /* Color de fondo al pasar el mouse (azul más oscuro) */
-            box-shadow: 0 6px 20px rgba(0, 94, 196, 0.3); /* Sombra más pronunciada al pasar el mouse */
-        }
-
-        button.btn-login:active {
-            background-color: #004C9A; /* Color al hacer clic */
-            transform: scale(0.97); /* Efecto de clic */
-            box-shadow: 0 2px 10px rgba(0, 76, 154, 0.2); /* Sombra reducida al hacer clic */
-        }
-
-        /* Contenedor para mensajes de error */
-        .error-message {
-            color: #D8000C; /* Color rojo para errores */
-            background-color: #FFD2D2; /* Fondo rojo claro */
-            border: 1px solid #D8000C;
-            padding: 10px;
-            margin-top: 15px;
-            border-radius: 5px;
-            font-size: 0.9em;
-            text-align: center;
-            display: none; /* Oculto por defecto */
-        }
-
-        /* Estilo para los enlaces inferiores (olvidaste contraseña, hazte cliente) */
-        .links {
-            margin-top: 20px; /* Espacio arriba de los enlaces */
-            font-size: 0.9em; /* Tamaño de fuente */
-        }
-
-        .links a {
-            color: #007BFF; /* Color de los enlaces (azul Manufharm) */
-            text-decoration: none; /* Sin subrayado por defecto */
-            display: block; /* Cada enlace en una nueva línea */
-            margin-bottom: 15px; /* Espacio entre enlaces aumentado */
-            transition: color 0.2s ease, text-decoration 0.2s ease; /* Transición para el color y subrayado del enlace */
-        }
-
-        .links a:hover {
-            color: #0056b3; /* Color del enlace al pasar el mouse (azul más oscuro) */
-            text-decoration: underline; /* Subrayado al pasar el mouse */
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
     </style>
 </head>
-<body>
-    <div class="login-container">
-        <!-- El atributo onerror está corregido aquí para que funcione como atributo válido de HTML -->
-        <img src="https://raw.githubusercontent.com/Zorropaton/cliente/main/logo.png" alt="Logo Farmacias Nacional" class="logo" onerror="this.onerror=null;this.src='https://placehold.co/180x60/EFEFEF/grey?text=Farmacias+Nacional';">
+<body class="flex items-center justify-center min-h-screen bg-gradient-to-br from-teal-500 to-cyan-700 p-4">
 
-        <form id="loginForm" action="#" method="POST">
-            <div class="input-group">
-                <span class="icon">&#128100;</span> <input type="text" id="username" name="username" placeholder="Usuario" required autocomplete="username">
+    <!-- Contenedor principal -->
+    <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-2xl shadow-2xl fade-in-scale">
+        
+        <!-- Logo con tamaño destacado -->
+        <div class="flex justify-center mb-2">
+            <img src="https://raw.githubusercontent.com/Zorropaton/cliente/main/logo.png" 
+                 alt="Logo Farmacias Nacional" 
+                 class="h-24 w-auto object-contain"
+                 onerror="this.onerror=null;this.src='https://placehold.co/300x120/f1f5f9/64748b?text=Farmacias+Nacional';">
+        </div>
+
+        <!-- Encabezado Normativo (Cumplimiento ISP Chile) -->
+        <div class="text-center space-y-3">
+            <h1 class="text-lg font-bold text-gray-800 leading-tight">Acceso Privado a Plataforma de Cotización y Validación Sanitaria</h1>
+            
+            <div class="bg-gray-50 p-3 rounded-lg border border-gray-100">
+                <p class="text-[10px] text-gray-500 text-justify leading-relaxed italic">
+                    <strong>AVISO LEGAL:</strong> Este portal es una herramienta de gestión interna y presupuestaria para usuarios autorizados. Los precios y disponibilidad aquí mostrados no constituyen una oferta de venta directa. Toda entrega de medicamentos está supeditada a la presentación de la receta médica respectiva y la validación del Director Técnico, conforme al Dto. 28 y la Norma Técnica 208 del ISP.
+                </p>
+            </div>
+        </div>
+
+        <!-- Formulario -->
+        <form id="loginForm" class="space-y-4">
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                </span>
+                <input type="text" id="username" name="username" required
+                       class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
+                       placeholder="Usuario autorizado">
             </div>
 
-            <div class="input-group">
-                <span class="icon">&#128274;</span> <input type="password" id="password" name="password" placeholder="Clave" required autocomplete="current-password">
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    </svg>
+                </span>
+                <input type="password" id="password" name="password" required
+                       class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
+                       placeholder="Clave de seguridad">
             </div>
 
-            <button type="submit" class="btn-login">Ingresar</button>
+            <button type="submit" 
+                    class="w-full py-3 px-4 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 active:scale-95 uppercase tracking-wide text-sm">
+                Ingresar al Portal Técnico
+            </button>
         </form>
 
-        <div id="errorMessage" class="error-message"></div>
+        <div id="errorMessage" class="hidden p-3 text-sm text-red-700 bg-red-100 border border-red-200 rounded-lg text-center animate-pulse"></div>
 
-        <div class="links">
-            <a href="#">¿Olvidaste tu contraseña?</a>
-            <a href="#">Hazte Cliente Farmacias Nacional</a>
+        <!-- Enlaces Inferiores -->
+        <div class="flex flex-col space-y-2 text-center pt-2 border-t border-gray-100">
+            <p class="text-[9px] text-gray-400 uppercase font-bold tracking-widest">
+                Sistema de Control Sanitario - Farmacias Nacional
+            </p>
+            <a href="#" class="text-xs text-teal-600 hover:underline">Soporte técnico de plataforma</a>
         </div>
     </div>
 
     <script>
-        // Espera a que el contenido del DOM esté completamente cargado
         document.addEventListener('DOMContentLoaded', function() {
-            // Obtener referencias a los elementos del formulario
             const loginForm = document.getElementById('loginForm');
             const usernameInput = document.getElementById('username');
             const passwordInput = document.getElementById('password');
             const errorMessageDiv = document.getElementById('errorMessage');
 
-            // Definir los usuarios y sus redirecciones
-            // La URL de redirección para "Farmaciasgo" se ha establecido como solicitaste.
             const users = [
-                {
-                    username: "Prueba",
-                    password: "0000", 
-                    redirectUrl: "https://zorropaton.github.io/Consolidado/"
-                },
-                {
-                    username: "Farmaciagyv1",
-                    password: "gyv1",
-                    redirectUrl: "https://zorropaton.github.io/cliente/eleccionacional.html"
-                },
-                { 
-                    username: "gyvsucursal2",
-                    password: "gyv2",
-                    redirectUrl: "https://zorropaton.github.io/cliente/eleccionacional.html" 
-                },
-                { 
-                    username: "Natural",
-                    password: "4141",
-                    redirectUrl: "https://zorropaton.github.io/Consolidado/consolidado60.html"
-                },
-                { // Usuario "Farmaciasgo" añadido
-                    username: "Farmaciasgo",
-                    password: "6060",
-                    redirectUrl: "https://zorropaton.github.io/cliente/eleccionnormal.html" 
-                }
-                // Puedes añadir más objetos de usuario aquí:
-                // { username: "otroUsuario", password: "otraClave", redirectUrl: "https://otra.url.com" }
+                { username: "Prueba", password: "0000", redirectUrl: "https://zorropaton.github.io/Consolidado/" },
+                { username: "Farmaciagyv1", password: "gyv1", redirectUrl: "https://zorropaton.github.io/cliente/eleccionacional.html" },
+                { username: "gyvsucursal2", password: "gyv2", redirectUrl: "https://zorropaton.github.io/cliente/eleccionacional.html" },
+                { username: "Natural", password: "4141", redirectUrl: "https://zorropaton.github.io/Consolidado/consolidado60.html" },
+                { username: "Farmaciasgo", password: "6060", redirectUrl: "https://zorropaton.github.io/cliente/eleccionnormal.html" }
             ];
 
-            // Contraseña especial y su URL de redirección
             const specialPassword = "5654";
             const specialRedirectUrl = "https://zorropaton.github.io/cliente/eleccionnormal.html";
 
-            // Añadir un 'event listener' para el evento 'submit' del formulario
             loginForm.addEventListener('submit', function(event) {
-                event.preventDefault(); // Prevenir el envío tradicional del formulario
-
-                // Obtener los valores de los campos de usuario y contraseña
+                event.preventDefault();
                 const enteredUsername = usernameInput.value.trim();
                 const enteredPassword = passwordInput.value.trim();
+                let loggedIn = false;
 
-                let loggedIn = false; // Variable para rastrear si el inicio de sesión fue exitoso
-
-                // 1. Verificar la contraseña especial PRIMERO
-                // Si la contraseña ingresada es la especial, redirige sin importar el nombre de usuario.
                 if (enteredPassword === specialPassword) {
-                    errorMessageDiv.style.display = 'none'; // Ocultar mensaje de error si estaba visible
-                    window.location.href = specialRedirectUrl; // Redirigir al usuario
-                    loggedIn = true; // Marcar como inicio de sesión exitoso
-                    return; // Importante: Salir de la función para no procesar más
+                    errorMessageDiv.classList.add('hidden');
+                    window.location.href = specialRedirectUrl;
+                    return;
                 }
 
-                // 2. Si no es la contraseña especial, buscar en la lista de usuarios normales
-                // Iterar sobre la lista de usuarios para encontrar una coincidencia de usuario y contraseña
                 for (const user of users) {
                     if (enteredUsername === user.username && enteredPassword === user.password) {
-                        errorMessageDiv.style.display = 'none'; // Ocultar mensaje de error
-                        window.location.href = user.redirectUrl; // Redirigir al usuario
-                        loggedIn = true; // Marcar como inicio de sesión exitoso
-                        break; // Salir del bucle ya que encontramos al usuario
+                        errorMessageDiv.classList.add('hidden');
+                        window.location.href = user.redirectUrl;
+                        loggedIn = true;
+                        break;
                     }
                 }
 
-                // 3. Si después de revisar todo (contraseña especial y lista de usuarios),
-                // loggedIn sigue siendo false, significa que las credenciales son incorrectas.
                 if (!loggedIn) {
-                    errorMessageDiv.textContent = "Usuario o contraseña incorrectos. Por favor, inténtalo de nuevo.";
-                    errorMessageDiv.style.display = 'block'; // Hacer visible el mensaje de error
-                    passwordInput.value = ""; // Limpiar el campo de contraseña para seguridad
-                    passwordInput.focus(); // Poner el foco en el campo de contraseña para facilitar la corrección
+                    errorMessageDiv.textContent = "Error de autenticación. Verifique sus credenciales.";
+                    errorMessageDiv.classList.remove('hidden');
+                    passwordInput.value = "";
                 }
             });
         });

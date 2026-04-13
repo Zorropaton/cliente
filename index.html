@@ -77,7 +77,7 @@
             <!-- Mensaje de Error Restaurado -->
             <div id="errorMessage" class="hidden mt-4 p-3 text-xs text-red-700 bg-red-100 border border-red-200 rounded-xl text-center font-semibold animate-pulse"></div>
 
-            <!-- SECCIÓN DE AVISOS LEGALES (Ubicada abajo para mejor flujo visual) -->
+            <!-- SECCIÓN DE AVISOS LEGALES -->
             <div class="mt-8 space-y-4">
                 <!-- AVISO DE COMPAÑEROS (Recuadro Ámbar) -->
                 <div class="bg-amber-50 rounded-2xl p-4 border border-amber-100 shadow-sm">
@@ -117,6 +117,7 @@
             const passwordInput = document.getElementById('password');
             const errorMessageDiv = document.getElementById('errorMessage');
 
+            // Base de datos de usuarios y rutas
             const users = [
                 { username: "Prueba", password: "0000", redirectUrl: "https://zorropaton.github.io/Consolidado/" },
                 { username: "Farmaciagyv1", password: "gyv1", redirectUrl: "https://zorropaton.github.io/cliente/eleccionacional.html" },
@@ -134,12 +135,14 @@
                 const enteredPassword = passwordInput.value.trim();
                 let loggedIn = false;
 
+                // Validación de clave especial
                 if (enteredPassword === specialPassword) {
                     errorMessageDiv.classList.add('hidden');
                     window.location.href = specialRedirectUrl;
                     return;
                 }
 
+                // Validación de usuarios estándar
                 for (const user of users) {
                     if (enteredUsername === user.username && enteredPassword === user.password) {
                         errorMessageDiv.classList.add('hidden');
